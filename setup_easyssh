@@ -1,0 +1,25 @@
+#!/bin/bash
+echo "Adding alias to .bash_profile"
+echo "alias ssh='/usr/bin/easyssh'" >> ~/.bash_profile
+echo "sourcing .bash_profile"
+source ~/.bash_profile
+cd /tmp/
+echo "Downloading easyssh from GitHub.com/shmadul/easyssh..."
+curl -O https://raw.githubusercontent.com/Shmadul/easyssh/master/easyssh
+echo "Setting easyssh permissions"
+mv -R /tmp/easyssh /usr/local/bin/easyssh
+echo "Moving easyssh to /usr/local/bin/"
+chmod +x /usr/local/bin/easyssh
+echo "Now you need to setup ~/.ssh/config"
+echo"
+Example ~/.ssh/config:
+Host nickname
+User root 
+#Password alpine
+HostName localhost
+Port 2222
+#To Prevent Man in the Middle Attacks from localhost add this to ~/.ssh/config
+StrictHostKeyChecking no
+UserKnownHostsFile=/dev/null
+#Once youve added ^ to ~/.ssh/config
+#Run ssh nickname and it will automatically login"
