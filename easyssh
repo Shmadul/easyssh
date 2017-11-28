@@ -1,0 +1,11 @@
+#!/bin/bash
+
+host=$1
+password=`awk "/#Password/ && inhost { print $2 } /Host/ { inhost=0 } /Host $host/ { inhost=1 }" ~/.ssh/config | sed -r 's/^.{10}//'`
+
+if [[ -z "$password" ]]; then
+  /usr/bin/ssh $*
+else
+  sshpass -p $password /usr/bin/ssh $*
+  exit 0
+fi
